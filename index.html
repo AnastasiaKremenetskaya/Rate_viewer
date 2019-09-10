@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>USD Viewer</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <script src="script.js" defer></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+  <div class="container" style="width: 40rem;">
+    <div class="card-deck mb-3 text-center " >
+      <div class="card mb-4 shadow-sm " >
+
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Здесь вы можете узнать курс USD на желаемую дату</h4>
+        </div>
+
+        <div class="card-body align-items-center">
+          <form id="search-by-date"  class="form-group mx-sm-3 mb-2" method="get" action="">
+
+            <div class="form-group row">
+              <label class="col-6" for="datepicker">Выберите дату:</label>
+              <input name="date" class="form-control col-6" id="datepicker" width="276" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 row">Узнать курс</button>
+          </form>
+          <div>Доллар США $ — <span id="USD"></span> руб.</div>
+        </div>
+
+      </div>
+  </div>
+</div>
+
+</body>
+
+</html>
