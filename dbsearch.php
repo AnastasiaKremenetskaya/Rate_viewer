@@ -1,18 +1,18 @@
 <?
-include('database.php');
+  require "config.php";
 
-$search = $_GET['fdate'];
-
-if(!empty($fdate)) {
-  
-  $sql = "SELECT val FROM rates WHERE fdate='$fdate'";
-  $result = mysqli_query($connection,$sql);
-  
-  if(mysqli_num_rows($result) == 1) {
-    echo $sql;
-  }
-  else {
-    echo 'invalid';
-  }
+  if (isset($_GET['fdate'])) {
+    try {
+      $connection = new PDO($dsn, $username, $password, $options);
+    
+      $sql = "SELECT RateValue 
+      FROM USDrates
+      WHERE RateDate = '$fdate'";
+$statement = $connection->prepare($sql);
+$statement->execute();
+$result = $statement->fetchAll();
+} catch(PDOException $error) {
+  echo 'invalid';
 }
+  }
 ?>

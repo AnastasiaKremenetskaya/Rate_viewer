@@ -27,7 +27,6 @@ $(document).ready(function () {
       type: 'GET',
       url: 'dbsearch.php',
       data: 'fdate=' + date,
-    
       success: function (result) {
         console.log(result);
 
@@ -37,22 +36,31 @@ $(document).ready(function () {
           //Get data from cbr API
           var key = '?date_req=' + date;
           var x = new XMLHttpRequest();
-          x.open('GET', 'https://cors-anywhere.herokuapp.com/https://www.cbr.ru/scripts/XML_daily.asp' + key);       
+          x.open('GET', 'https://cors-anywhere.herokuapp.com/https://www.cbr.ru/scripts/XML_daily.asp' + key);
           x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
           x.onload = function () {
             var USD = x.responseXML.querySelector("Valute[ID='R01235']").lastChild;
             $('#USD').html(USD);
+
+            alert(document.getElementById('USD').innerText);
+            //Add data to local db
+            $.ajax({
+              type: "GET",
+              url: "dbadd.php",
+              data: { fdate: date, fvalue: document.getElementById('USD').innerText}
+            })
+              .done(function (result) {
+                console.log(result);
+              });
           }
           x.send();
-      
-          //Add data to local db
+          console.log("data from cbr api");          
 
         }
-
         //Else if rate is found in local db
         else {
           $('#USD').html(result);
-          console.log("result");
+          console.log("rate is found in local db");
         }
       },
 

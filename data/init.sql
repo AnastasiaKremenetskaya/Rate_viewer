@@ -1,0 +1,9 @@
+CREATE DATABASE db;
+
+use db;
+
+CREATE TABLE USDrates (
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	RateDate Date NOT NULL,
+	RateValue  DECIMAL(6,4) NOT NULL
+);

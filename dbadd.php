@@ -1,14 +1,24 @@
 <?
-  include('database.php');
+  require "config.php";
 
 if(isset($_GET['fdate'])) {
-  $rate_date = $_GET['fdate'];
-  $rate_value = $_GET['fvalue'];
-  $query = "INSERT into rates(date, value) VALUES ('$rate_date', '$rate_value')";
-  $result = mysqli_query($connection, $query);
-  if (!$result) {
-    die('Query Failed.');
+  try {
+    $connection = new PDO($dsn, $username, $password, $options);
+    $new_rate = array(
+      "firstname" => $_GET['fdate'],
+      "lastname"  => $_GET['fvalue']
+    );
+    $sql = sprintf(
+      "INSERT INTO %s (%s) values (%s)",
+      "USDrates",
+      implode(", ", array_keys($new_rate)),
+      ":" . implode(", :", array_keys($new_rate))
+    );
+    
+    $statement = $connection->prepare($sql);
+    $statement->execute($new_user);
+  } catch(PDOException $error) {
+      echo $sql . "<br>" . $error->getMessage();
   }
-  echo "Rate Added";  
-}
+  }
 ?>
