@@ -5,14 +5,18 @@
     try {
       $connection = new PDO($dsn, $username, $password, $options);
     
-      $sql = "SELECT RateValue 
-      FROM USDrates
-      WHERE RateDate = '$fdate'";
-$statement = $connection->prepare($sql);
-$statement->execute();
-$result = $statement->fetchAll();
-} catch(PDOException $error) {
-  echo 'invalid';
-}
-  }
+      $sql_insert = "SELECT RateValue FROM USDrates WHERE RateDate = :fdate";
+      $statement = $connection->prepare($sql_insert);
+      
+      $statement->bindParam(':fdate', $RateDate);
+
+      $statement->execute();
+      $result = $statement->fetch();
+
+      echo $result['RateValue'];
+
+    } catch(PDOException $error) {
+      echo 'invalid';
+      }
+    }
 ?>

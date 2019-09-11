@@ -1,5 +1,6 @@
 //Set up custom date widget
 $('#datepicker').datepicker({
+
   uiLibrary: 'bootstrap4',
   format: 'dd/mm/yyyy'
 });
@@ -39,10 +40,10 @@ $(document).ready(function () {
           x.open('GET', 'https://cors-anywhere.herokuapp.com/https://www.cbr.ru/scripts/XML_daily.asp' + key);
           x.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
           x.onload = function () {
+            
             var USD = x.responseXML.querySelector("Valute[ID='R01235']").lastChild;
             $('#USD').html(USD);
 
-            alert(document.getElementById('USD').innerText);
             //Add data to local db
             $.ajax({
               type: "GET",
@@ -54,17 +55,20 @@ $(document).ready(function () {
               });
           }
           x.send();
-          console.log("data from cbr api");          
+          console.log("data from cbr api. local db is updated");          
 
         }
+
         //Else if rate is found in local db
         else {
+
           $('#USD').html(result);
           console.log("rate is found in local db");
         }
       },
 
       error: function () {
+
         alert("Ошибка выполнения");
       }
     });

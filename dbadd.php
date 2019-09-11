@@ -4,21 +4,21 @@
 if(isset($_GET['fdate'])) {
   try {
     $connection = new PDO($dsn, $username, $password, $options);
-    $new_rate = array(
-      "firstname" => $_GET['fdate'],
-      "lastname"  => $_GET['fvalue']
-    );
-    $sql = sprintf(
-      "INSERT INTO %s (%s) values (%s)",
-      "USDrates",
-      implode(", ", array_keys($new_rate)),
-      ":" . implode(", :", array_keys($new_rate))
-    );
+
+    $RateDate = $_GET['fdate'];
+    $RateValue = $_GET['fvalue'];
     
-    $statement = $connection->prepare($sql);
-    $statement->execute($new_user);
+    // Insert data
+    $sql_insert = "INSERT INTO USDrates (RateDate, RateValue) VALUES (?,?)";
+     
+    $statement = $connection->prepare($sql_insert);
+
+    $statement->bindValue(1, $RateDate);
+    $statement->bindValue(2, $RateValue);
+    
+    $statement->execute();
   } catch(PDOException $error) {
-      echo $sql . "<br>" . $error->getMessage();
+      echo $error->getMessage();
   }
   }
 ?>
